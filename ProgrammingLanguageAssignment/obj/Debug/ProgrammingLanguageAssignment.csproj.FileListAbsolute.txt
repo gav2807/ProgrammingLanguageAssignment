@@ -1,0 +1,11 @@
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\bin\Debug\ProgrammingLanguageAssignment.exe
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\bin\Debug\ProgrammingLanguageAssignment.exe.config
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.csproj.AssemblyReference.cache
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.csproj.SuggestedBindingRedirects.cache
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.Form1.resources
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.Properties.Resources.resources
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.csproj.GenerateResource.cache
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.csproj.CoreCompileInputs.cache
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.exe
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\obj\Debug\ProgrammingLanguageAssignment.pdb
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment\bin\Debug\ProgrammingLanguageAssignment.pdb
