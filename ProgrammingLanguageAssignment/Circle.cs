@@ -7,38 +7,27 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguageAssignment
 {
-    public class Circle
+    public class Circle : Shapes
     {
-        public int xPos;
-        public int yPos;
         public int radius;
-        public Pen pen;
-        public SolidBrush brush;
-        public Graphics g;
 
-        public Circle(int x, int y, Graphics g, Pen pen, SolidBrush brush)
+        public Circle(int radius, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
         {
-            xPos = x;
-            yPos = y;
-            this.pen = pen;
-            this.brush = brush;
-            this.g = g;
+            this.radius = radius;
         }
+
 
         /// <summary>
         /// This method draws a circle
         /// </summary>
-        /// <param name="radius"></param>
-        public void Draw(float radius)
+        /// <param name="g"></param>
+        public void Draw(Graphics g)
         {
-            float xpen = (xPos - (radius / 2)) + 2;
-            float ypen = (yPos - (radius / 2)) + 2;
+            float xPosition = (x - (radius / 2)) + 2;
+            float yPosition = (y - (radius / 2)) + 2;
 
-            g.DrawEllipse(pen, xpen, ypen, radius, radius);
-            g.FillEllipse(brush, xpen, ypen, radius, radius);
+            g.DrawEllipse(pen, xPosition, yPosition, radius, radius);
+            g.FillEllipse(brush, xPosition, yPosition, radius, radius);
         }
-
-        // public static int xpen = (Form1.xbrush - (Form1.width / 2)) + 2;
-        // public static int ypen = (Form1.ybrush - (Form1.height / 2)) + 2;
     }
 }

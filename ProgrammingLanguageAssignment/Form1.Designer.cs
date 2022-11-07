@@ -38,10 +38,10 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(12, 252);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnRun.Location = new System.Drawing.Point(9, 205);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(2);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(75, 23);
+            this.btnRun.Size = new System.Drawing.Size(56, 19);
             this.btnRun.TabIndex = 0;
             this.btnRun.Text = "Run";
             this.btnRun.UseVisualStyleBackColor = true;
@@ -49,54 +49,54 @@
             // 
             // btnSyntax
             // 
-            this.btnSyntax.Location = new System.Drawing.Point(131, 252);
-            this.btnSyntax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSyntax.Location = new System.Drawing.Point(98, 205);
+            this.btnSyntax.Margin = new System.Windows.Forms.Padding(2);
             this.btnSyntax.Name = "btnSyntax";
-            this.btnSyntax.Size = new System.Drawing.Size(75, 23);
+            this.btnSyntax.Size = new System.Drawing.Size(56, 19);
             this.btnSyntax.TabIndex = 1;
             this.btnSyntax.Text = "Syntax";
             this.btnSyntax.UseVisualStyleBackColor = true;
+            this.btnSyntax.Click += new System.EventHandler(this.btnSyntax_Click);
             // 
             // programWindow
             // 
-            this.programWindow.Location = new System.Drawing.Point(12, 12);
-            this.programWindow.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.programWindow.Location = new System.Drawing.Point(9, 10);
+            this.programWindow.Margin = new System.Windows.Forms.Padding(2);
             this.programWindow.Multiline = true;
             this.programWindow.Name = "programWindow";
-            this.programWindow.Size = new System.Drawing.Size(325, 184);
+            this.programWindow.Size = new System.Drawing.Size(245, 150);
             this.programWindow.TabIndex = 2;
             // 
             // commandLine
             // 
-            this.commandLine.Location = new System.Drawing.Point(12, 215);
-            this.commandLine.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.commandLine.Location = new System.Drawing.Point(9, 175);
+            this.commandLine.Margin = new System.Windows.Forms.Padding(2);
             this.commandLine.Name = "commandLine";
-            this.commandLine.Size = new System.Drawing.Size(325, 22);
+            this.commandLine.Size = new System.Drawing.Size(245, 20);
             this.commandLine.TabIndex = 3;
             this.commandLine.KeyDown += new System.Windows.Forms.KeyEventHandler(this.commandLine_KeyDown);
             // 
             // outPutBox
             // 
             this.outPutBox.BackColor = System.Drawing.Color.Gray;
-            this.outPutBox.Location = new System.Drawing.Point(388, 12);
-            this.outPutBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.outPutBox.Location = new System.Drawing.Point(291, 10);
             this.outPutBox.Name = "outPutBox";
-            this.outPutBox.Size = new System.Drawing.Size(540, 444);
+            this.outPutBox.Size = new System.Drawing.Size(287, 185);
             this.outPutBox.TabIndex = 5;
             this.outPutBox.TabStop = false;
             this.outPutBox.Paint += new System.Windows.Forms.PaintEventHandler(this.outPutBox_Paint);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 543);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.outPutBox);
             this.Controls.Add(this.commandLine);
             this.Controls.Add(this.programWindow);
             this.Controls.Add(this.btnSyntax);
             this.Controls.Add(this.btnRun);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

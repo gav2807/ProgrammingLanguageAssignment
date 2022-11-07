@@ -9,32 +9,27 @@ using System.Windows.Forms;
 
 namespace ProgrammingLanguageAssignment
 {
-    public class Canvas
+    public class Canvas : Shapes
     {
         Graphics g;
-        PictureBox outPutBox;
-
         public Pen pen;
         public SolidBrush brush;
-
-        public int xPos, yPos;
-        public int xPen = 0;
-        public int yPen = 0;
+        public int xPosition, yPosition;
         public bool fill = false;
+
 
         /// <summary>
         /// This method initiates the output window
         /// </summary>
         /// <param name="g"></param>
         /// <param name="outPutBox"></param>
-        public Canvas(Graphics g, PictureBox outPutBox)
+        public Canvas(Graphics g, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
         {
             this.g = g;
-            xPos = 5;
-            yPos = 5;
-            pen = new Pen(Color.Blue);
-            brush = new SolidBrush(Color.Transparent);
-            this.outPutBox = outPutBox;
+            this.pen = new Pen(Color.Black);
+            this.brush = new SolidBrush(Color.Transparent);
+            this.xPosition = x;
+            this.yPosition = y;
             MoveTo(5, 5);
         }
 
@@ -42,15 +37,15 @@ namespace ProgrammingLanguageAssignment
         /// <summary>
         /// This method moves the pen to a location
         /// </summary>
-        public void MoveTo(int x, int y)
+        public void MoveTo(int start, int end)
         {
             brush.Color = Color.Gray;
-            g.FillEllipse(brush, xPos, yPos, 4, 4);
+            g.FillEllipse(brush, xPosition, yPosition, 4, 4);
 
-            xPos = x;
-            yPos = y;
+            xPosition = start;
+            yPosition = end;
             brush.Color = Color.Red;
-            g.FillEllipse(brush, x, y, 4, 4);
+            g.FillEllipse(brush, start, end, 4, 4);
             brush.Color = Color.Transparent;
         }
 
@@ -67,11 +62,10 @@ namespace ProgrammingLanguageAssignment
         /// <summary>
         /// This method draws lines to specified co-ordinates
         /// </summary>
-        public void DrawTo(int x, int y)
+        public void DrawTo(int start, int end)
         {
-            g.DrawLine(pen, xPos, yPos, x, y); 
-            xPos = x;
-            yPos = y;
+            DrawTo drawTo = new DrawTo(start, end, xPosition, yPosition, pen, brush);
+            drawTo.Draw(g);
         }
 
 
@@ -80,6 +74,7 @@ namespace ProgrammingLanguageAssignment
         /// </summary>
         public void ClearDrawing()
         {
+            PenColor("Black");
             g.Clear(Color.Gray);
         }
 
@@ -94,41 +89,41 @@ namespace ProgrammingLanguageAssignment
 
 
         /// <summary>
-        /// Draw rectangle method is used to draw a rectangle on the output window
+        /// Draw rectangle method is used to draw a rectangle.
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
         public void DrawRectangle(int width, int height)
         {
-            Rectangle rectangle = new Rectangle(xPos, yPos, g, pen, brush);
-            rectangle.Draw(width, height);
+            Rectangle rectangle = new Rectangle(width, height, xPosition, yPosition, pen, brush);
+            rectangle.Draw(g);
         }
 
 
         /// <summary>
-        /// This method is called to draw a circle on our output window
+        /// This method is called to draw a circle.
         /// </summary>
         /// <param name="radius"></param>
-        public void DrawCircle(float radius)
+        public void DrawCircle(int radius)
         {
-            Circle circle = new Circle(xPos, yPos, g, pen, brush);
-            circle.Draw(radius);
+            Circle circle = new Circle(radius, xPosition, yPosition, pen, brush);
+            circle.Draw(g);
         }
 
 
         /// <summary>
-        /// This method is called to draw the triangle on our output window
+        /// This method is called to draw the triangle.
         /// </summary>
         /// <param name="pointsToDraw"></param>
         public void DrawTriangle(PointF[] pointsToDraw)
         {
-            g.DrawPolygon(pen, pointsToDraw);//Draw shape using a pen instance 
-            g.FillPolygon(brush, pointsToDraw);//Draw shape and fill with a solid brush instance 
+            Triangle triangle = new Triangle(pointsToDraw, xPosition, yPosition, pen, brush);
+            triangle.Draw(g); 
         }
 
 
         /// <summary>
-        /// Fill shape method is called to fill any shape on the output window
+        /// This method is called to fill any shape.
         /// </summary>
         public void Fill()
         {

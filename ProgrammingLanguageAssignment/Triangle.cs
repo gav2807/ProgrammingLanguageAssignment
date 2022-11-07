@@ -7,37 +7,24 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguageAssignment
 {
-    public class Triangle
+    public class Triangle : Shapes
     {
+        public PointF[] points;
 
-        public int xPos;
-        public int yPos;
-        public Pen pen;
-        public SolidBrush brush;
-        public Graphics g;
-
-        public Triangle(int x, int y, Graphics g, Pen pen, SolidBrush brush)
+        public Triangle(PointF[] pointsToDraw, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
         {
-            xPos = x;
-            yPos = y;
-            this.pen = pen;
-            this.brush = brush;
-            this.g = g;
+            this.points = pointsToDraw;
         }
 
+
         /// <summary>
-        /// This method draws a triangle
+        /// This method draws a circle
         /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public void Draw(PointF[] pointsToDraw)
+        /// <param name="g"></param>
+        public void Draw(Graphics g)
         {
-            // float xpen = (xPos - (width / 2)) + 2;
-            // float ypen = (xPos - (height / 2)) + 2;
-
-            g.DrawPolygon(pen, pointsToDraw); 
-            g.FillPolygon(brush, pointsToDraw); 
-
+            g.DrawPolygon(pen, points);
+            g.FillPolygon(brush, points);
         }
     }
 }

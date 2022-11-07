@@ -49,6 +49,7 @@
     <Compile Include="Canvas.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="DrawTo.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

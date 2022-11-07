@@ -16,12 +16,16 @@ namespace ProgrammingLanguageAssignment
         private Canvas canvas;
         private Commands commandInstance;
         private Bitmap bitmap = new Bitmap(650, 450);
+        public Pen pen;
+        public SolidBrush brush;
 
 
         public Form1()
         {
             InitializeComponent();
-            canvas = new Canvas(Graphics.FromImage(bitmap), outPutBox);
+            pen = new Pen(Color.Black);
+            brush = new SolidBrush(Color.Transparent);
+            canvas = new Canvas(Graphics.FromImage(bitmap), 0, 0, pen, brush);
             commandInstance = new Commands(canvas, commandLine);
             outPutBox.Image = bitmap;
         }
@@ -64,6 +68,14 @@ namespace ProgrammingLanguageAssignment
                 commandLine.Text = "";
                 outPutBox.Refresh();
             }
+        }
+
+        private void btnSyntax_Click(object sender, EventArgs e)
+        {
+            string inputArray = commandLine.Text.Trim().ToLower();
+            string programInput = programWindow.Text.ToLower();
+            commandInstance.HandleCommand(inputArray, programInput);
+            //MessageBox.Show("Check Syntax");
         }
     }
 }

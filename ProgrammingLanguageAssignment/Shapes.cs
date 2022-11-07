@@ -9,10 +9,16 @@ namespace ProgrammingLanguageAssignment
 {
     public class Shapes
     {
-        public int xPos;
-        public int yPos;
-        public Pen pen;
-        public SolidBrush brush;
-        public Graphics g;
+        protected int x, y = 10;
+        protected Pen pen;
+        protected SolidBrush brush;
+        public Shapes (int x, int y, Pen pen, SolidBrush brush)
+        {
+            this.x = x;
+            this.y = y;
+            this.pen = pen;
+            this.brush = brush;
+        }
+
     }
 }

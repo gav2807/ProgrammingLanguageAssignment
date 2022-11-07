@@ -14,6 +14,7 @@ namespace ProgrammingLanguageAssignment
         private Canvas canvasInstance;
         private TextBox commandLine;
 
+
         /// <summary>
         /// Method for canvas and the command line instance
         /// </summary>
@@ -25,11 +26,12 @@ namespace ProgrammingLanguageAssignment
             commandLine = CommandLine;
         }
 
+
         /// <summary>
         /// Method to handle commands from the commandline
         /// </summary>
-        /// <param name="canvas"></param>
         /// <param name="Command"></param>
+        /// <param name="ProgramStr"></param>
         public void HandleCommand(String Command, String ProgramStr)
         {
             String[] CommandStr = Command.Split(' ');
@@ -77,31 +79,25 @@ namespace ProgrammingLanguageAssignment
                     break;
 
                 default:
-                    MessageBox.Show(CommandStr + " is not a valid command.");
+                    MessageBox.Show(CommandStr[0] + " is not a valid command.");
                     break;
             }
 
         }
-
 
         private void ProgramWindowCommand(string ProgramStr)
         {
             String[] Commander = ProgramStr.Split(Environment.NewLine.ToCharArray());
             int Loop = 0;
 
-
             while (Loop < Commander.Length)
             {
                 String[] SingleCommands = Commander[Loop].Split(' ');
-
                 if (SingleCommands[0] == "pen" || SingleCommands[0] == "rect" || SingleCommands[0] == "circle" || SingleCommands[0] == "triangle" || SingleCommands[0] == "moveto" || SingleCommands[0] == "drawto" || SingleCommands[0] == "fill" || SingleCommands[0] == "clear" || SingleCommands[0] == "reset")
                 {
                     HandleCommand(Commander[Loop], null);
-                    //Refresh();
                 }
-
                 Loop++;
-
             }
         }
 
@@ -109,32 +105,33 @@ namespace ProgrammingLanguageAssignment
         /// <summary>
         /// DrawTo command process handler.
         /// </summary>
-        /// <param name="ParamList"></param>
+        /// <param name="Params"></param>
         private void DrawTo(string[] ParamList)
         {
+            string[] arguments = ParamList[1].Split(',');
 
-            if (ParamList.Length == 3)
+            if (arguments.Length == 2)
             {
                 int x, y = 0;
 
                 try
                 {
-                    x = Int32.Parse(ParamList[1]);
+                    x = Int32.Parse(arguments[0]);
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Unable to parse X position " + ParamList[1] + " as an integer.");
+                    MessageBox.Show("Unable to parse X position " + arguments[0] + " as an integer.");
                     commandLine.Text = "";
                     return;
                 }
 
                 try
                 {
-                    y = Int32.Parse(ParamList[2]);
+                    y = Int32.Parse(arguments[1]);
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Unable to parse Y position " + ParamList[2] + " as an integer.");
+                    MessageBox.Show("Unable to parse Y position " + arguments[1] + " as an integer.");
                     commandLine.Text = "";
                     return;
                 }
@@ -143,40 +140,42 @@ namespace ProgrammingLanguageAssignment
             }
             else
             {
-                MessageBox.Show("Invalid input. Please use the format: DrawTo 10 20");
+                MessageBox.Show("Invalid input. Please use the format: DrawTo 10,20");
                 commandLine.Text = "";
             }
         }
 
+
         /// <summary>
         /// MoveTo command process handler
         /// </summary>
-        /// <param name="CommandStr"></param>
-        private void MoveTo(string[] CommandStr)
+        /// <param name="ParamList"></param>
+        private void MoveTo(string[] ParamList)
         {
+            string[] arguments = ParamList[1].Split(',');
 
-            if (CommandStr.Length == 3)
+            if (arguments.Length == 2)
             {
                 int x, y = 0;
 
                 try
                 {
-                    x = Int32.Parse(CommandStr[1]);
+                    x = Int32.Parse(arguments[0]);
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Unable to parse X axis " + CommandStr[1] + " as an integer.");
+                    MessageBox.Show("Unable to parse X axis " + arguments[0] + " as an integer.");
                     commandLine.Text = "";
                     return;
                 }
 
                 try
                 {
-                    y = Int32.Parse(CommandStr[2]);
+                    y = Int32.Parse(arguments[1]);
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Unable to parse Y axis " + CommandStr[2] + " as an integer.");
+                    MessageBox.Show("Unable to parse Y axis " + arguments[1] + " as an integer.");
                     commandLine.Text = "";
                     return;
                 }
@@ -185,39 +184,42 @@ namespace ProgrammingLanguageAssignment
             }
             else
             {
-                MessageBox.Show("Invalid input. Please use the format: MoveTo 20,40");
+                MessageBox.Show("Invalid input. Please use the format: MoveTo 20,20");
                 commandLine.Text = "";
             }
         }
+         
+
         /// <summary>
         /// Rectangle command process handler.
         /// </summary>
         /// <param name="ParamList"></param>
         private void DrawRectangle(string[] ParamList)
         {
+            string[] arguments = ParamList[1].Split(',');
 
-            if (ParamList.Length == 3)
+            if (arguments.Length == 2)
             {
                 int x, y = 0;
 
                 try
                 {
-                    x = Int32.Parse(ParamList[1]);
+                    x = Int32.Parse(arguments[0]);
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Unable to parse width " + ParamList[1] + " as an integer.");
+                    MessageBox.Show("Unable to parse width " + arguments[0] + " as an integer.");
                     commandLine.Text = "";
                     return;
                 }
 
                 try
                 {
-                    y = Int32.Parse(ParamList[2]);
+                    y = Int32.Parse(arguments[1]);
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Unable to parse height " + ParamList[2] + " as an integer.");
+                    MessageBox.Show("Unable to parse height " + arguments[1] + " as an integer.");
                     commandLine.Text = "";
                     return;
                 }
@@ -226,7 +228,7 @@ namespace ProgrammingLanguageAssignment
             }
             else
             {
-                MessageBox.Show("Invalid Input. Kindly input a valid width and height, e.g: rectangle 10 10.");
+                MessageBox.Show("Invalid Input. Kindly input a valid width and height, e.g: rect 10,10.");
                 commandLine.Text = "";
             }
         }
@@ -286,9 +288,9 @@ namespace ProgrammingLanguageAssignment
                     return;
                 }
 
-                PointF firstSide = new PointF(((canvasInstance.xPos / 2) + 2), ((canvasInstance.yPos/2) + 2 ));
-                PointF secondSide = new PointF(sides + ((canvasInstance.xPos / 2) + 2), sides + ((canvasInstance.yPos / 2) + 2));
-                PointF thirdSide = new PointF((sides/2) + ((canvasInstance.xPos /2) + 2), 0.0f + ((canvasInstance.yPos / 2) + 2));
+                PointF firstSide = new PointF(((canvasInstance.xPosition / 2) + 2), (sides + (canvasInstance.yPosition/2) + 2 ));
+                PointF secondSide = new PointF(sides + ((canvasInstance.xPosition / 2) + 2), sides + ((canvasInstance.yPosition / 2) + 2));
+                PointF thirdSide = new PointF((sides/2) + ((canvasInstance.xPosition /2) + 2), 0.0f + ((canvasInstance.yPosition / 2) + 2));
 
                 PointF[] trianglePoints = { firstSide, secondSide, thirdSide };
                 canvasInstance.DrawTriangle(trianglePoints);
@@ -349,14 +351,11 @@ namespace ProgrammingLanguageAssignment
         /// <param name="ParamList"></param>
         private void PenColor(string[] ParamList)
         {
-
             if (ParamList.Length == 2)
             {
                 string c = ParamList[1];
-
                 switch (c)
                 {
-
                     case "blue":
                         canvasInstance.pen.Color = Color.Blue;
                         break;

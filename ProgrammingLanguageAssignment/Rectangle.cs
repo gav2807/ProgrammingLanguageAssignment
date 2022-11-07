@@ -7,35 +7,28 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguageAssignment
 {
-    public class Rectangle
+    public class Rectangle : Shapes
     {
-        public int xPos;
-        public int yPos;
-        public Pen pen;
-        public SolidBrush brush;
-        public Graphics g;
+        public int width, height;
 
-        public Rectangle(int x, int y, Graphics g, Pen pen, SolidBrush brush) 
+        public Rectangle(int width, int height, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
         {
-            xPos = x;
-            yPos = y;
-            this.pen = pen;
-            this.brush = brush;
-            this.g = g;
+            this.width = width;
+            this.height = height;
         }
+
 
         /// <summary>
         /// This method draws a rectangle
         /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public void Draw(int width, int height)
+        /// <param name="g"></param>
+        public void Draw(Graphics g)
         {
-            float xpen = (xPos - (width / 2)) + 2;
-            float ypen = (xPos - (height / 2)) + 2;
+            float xPosition = (x - (width / 2)) + 2;
+            float yPosition = (y - (height / 2)) + 2;
 
-            g.DrawRectangle(pen, xpen, ypen, width, height);
-            g.FillRectangle(brush, xPos, yPos, xPos + width, yPos + height);
+            g.DrawRectangle(pen, xPosition, yPosition, width, height);
+            g.FillRectangle(brush, xPosition, yPosition, width, height);
         }
     }
 }
