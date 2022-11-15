@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -13,7 +14,6 @@ namespace ProgrammingLanguageAssignment
 {
     public partial class Form1 : Form
     { 
-        private Canvas canvas;
         private Commands commandInstance;
         private Bitmap bitmap = new Bitmap(650, 450);
         public Pen pen;
@@ -25,8 +25,7 @@ namespace ProgrammingLanguageAssignment
             InitializeComponent();
             pen = new Pen(Color.Black);
             brush = new SolidBrush(Color.Transparent);
-            canvas = new Canvas(Graphics.FromImage(bitmap), 0, 0, pen, brush);
-            commandInstance = new Commands(canvas, commandLine);
+            commandInstance = new Commands(commandLine, bitmap, 0, 0, pen, brush);
             outPutBox.Image = bitmap;
         }
 
@@ -70,12 +69,40 @@ namespace ProgrammingLanguageAssignment
             }
         }
 
+
         private void btnSyntax_Click(object sender, EventArgs e)
         {
             string inputArray = commandLine.Text.Trim().ToLower();
             string programInput = programWindow.Text.ToLower();
             commandInstance.HandleCommand(inputArray, programInput);
-            //MessageBox.Show("Check Syntax");
+        }
+
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog file = new SaveFileDialog();        
+            file.DefaultExt = "*.txt";
+            file.Filter = "Text Files (*.txt)|*.txt|RTF Files (*.rtf)|*.rtf";        
+            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK && file.FileName.Length > 0)
+            {
+                programWindow.SaveFile(file.FileName, RichTextBoxStreamType.PlainText); 
+                MessageBox.Show("File saved successfully");
+            }
+        }
+
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stream stream;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if ((stream = openFileDialog.OpenFile()) != null)
+                {
+                    programWindow.Text = File.ReadAllText(openFileDialog.FileName);
+                }
+            }
         }
     }
 }

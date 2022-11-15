@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,19 +12,38 @@ namespace ProgrammingLanguageAssignment
 {
     public class Commands
     {
-        private Canvas canvasInstance;
         private TextBox commandLine;
+        Graphics g;
+        Pen pen;
+        SolidBrush brush;
+        int x, y;
+        public bool fill = false;
+        ShapesFactory factory;
+        Shapes s;
 
 
         /// <summary>
-        /// Method for canvas and the command line instance
+        /// Commands Constructor
         /// </summary>
-        /// <param name="canvas"></param>
         /// <param name="CommandLine"></param>
-        public Commands(Canvas canvas, TextBox CommandLine)
+        /// <param name="bitmap"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="pen"></param>
+        /// <param name="brush"></param>
+        public Commands(TextBox CommandLine, Bitmap bitmap, int x, int y, Pen pen, SolidBrush brush)
         {
-            canvasInstance = canvas;
+            // canvasInstance = canvas;
+            factory = new ShapesFactory();
             commandLine = CommandLine;
+            g = Graphics.FromImage(bitmap);
+            this.pen = pen;
+            this.brush = brush;
+            this.x = x;
+            this.y = y;
+            
+            
+
         }
 
 
@@ -47,7 +67,7 @@ namespace ProgrammingLanguageAssignment
                     break;
 
                 case "clear":
-                    canvasInstance.ClearDrawing();
+                    Clear();
                     break;
 
                 case "reset":
@@ -85,6 +105,11 @@ namespace ProgrammingLanguageAssignment
 
         }
 
+
+        /// <summary>
+        /// Method to handle programming window
+        /// </summary>
+        /// <param name="ProgramStr"></param>
         private void ProgramWindowCommand(string ProgramStr)
         {
             String[] Commander = ProgramStr.Split(Environment.NewLine.ToCharArray());
@@ -136,7 +161,12 @@ namespace ProgrammingLanguageAssignment
                     return;
                 }
 
-                canvasInstance.DrawTo(x, y);
+
+                int[] list = new int[] { x, y };
+                s = factory.getShape("drawto");
+                s.set(this.x, this.y, pen, brush, list);
+                s.draw(g);
+
             }
             else
             {
@@ -180,7 +210,12 @@ namespace ProgrammingLanguageAssignment
                     return;
                 }
 
-                canvasInstance.MoveTo(x, y);
+                int[] list = new int[] { x, y };
+                s = factory.getShape("moveto");
+                s.set(this.x, this.y, pen, brush, list);
+                s.draw(g);
+                this.x = x;
+                this.y = y;
             }
             else
             {
@@ -200,11 +235,11 @@ namespace ProgrammingLanguageAssignment
 
             if (arguments.Length == 2)
             {
-                int x, y = 0;
+                int w, h = 0;
 
                 try
                 {
-                    x = Int32.Parse(arguments[0]);
+                    w = Int32.Parse(arguments[0]);
                 }
                 catch (FormatException)
                 {
@@ -215,7 +250,7 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    y = Int32.Parse(arguments[1]);
+                    h = Int32.Parse(arguments[1]);
                 }
                 catch (FormatException)
                 {
@@ -224,7 +259,12 @@ namespace ProgrammingLanguageAssignment
                     return;
                 }
 
-                canvasInstance.DrawRectangle(x, y);
+                int[] list = new int[] { w, h };
+                s = factory.getShape("rect");
+                s.set(this.x, this.y, pen, brush, list);
+                s.draw(g);
+
+                //canvasInstance.DrawRectangle(x, y);
             }
             else
             {
@@ -256,7 +296,10 @@ namespace ProgrammingLanguageAssignment
                     return;
                 }
 
-                canvasInstance.DrawCircle(radius);
+                int[] list = new int[] { radius };
+                s = factory.getShape("circle");
+                s.set(this.x, this.y, pen, brush, list);
+                s.draw(g);
             }
             else
             {
@@ -288,12 +331,12 @@ namespace ProgrammingLanguageAssignment
                     return;
                 }
 
-                PointF firstSide = new PointF(((canvasInstance.xPosition / 2) + 2), (sides + (canvasInstance.yPosition/2) + 2 ));
-                PointF secondSide = new PointF(sides + ((canvasInstance.xPosition / 2) + 2), sides + ((canvasInstance.yPosition / 2) + 2));
-                PointF thirdSide = new PointF((sides/2) + ((canvasInstance.xPosition /2) + 2), 0.0f + ((canvasInstance.yPosition / 2) + 2));
+                int[] list = new int[] { sides };
+                s = factory.getShape("triangle");
+                s.set(this.x, this.y, pen, brush, list);
+                s.draw(g);
 
-                PointF[] trianglePoints = { firstSide, secondSide, thirdSide };
-                canvasInstance.DrawTriangle(trianglePoints);
+                //canvasInstance.DrawTriangle(trianglePoints);
             }
             else
             {
@@ -309,7 +352,10 @@ namespace ProgrammingLanguageAssignment
         /// </summary>
         private void ResetPenPosition()
         {
-            canvasInstance.ResetPosition();
+            int[] list = new int[] { 5, 5 };
+            s = factory.getShape("moveto");
+            s.set(this.x, this.y, pen, brush, list);
+            s.draw(g);
         }
 
 
@@ -319,7 +365,7 @@ namespace ProgrammingLanguageAssignment
         /// <param name="ParamList"></param>
         private void FillShape(string[] ParamList)
         {
-            canvasInstance.Fill();
+            this.fill = !this.fill;
 
             if (ParamList.Length == 2)
             {
@@ -328,11 +374,11 @@ namespace ProgrammingLanguageAssignment
                 switch (c)
                 {
                     case "on":
-                        canvasInstance.brush.Color = canvasInstance.pen.Color;
+                        this.brush.Color = this.pen.Color;
                         break;
 
                     case "off":
-                        canvasInstance.brush.Color = Color.Transparent;
+                        this.brush.Color = Color.Transparent;
                         break;
                 }
             }
@@ -357,19 +403,19 @@ namespace ProgrammingLanguageAssignment
                 switch (c)
                 {
                     case "blue":
-                        canvasInstance.pen.Color = Color.Blue;
+                        this.pen.Color = Color.Blue;
                         break;
 
                     case "black":
-                        canvasInstance.pen.Color = Color.Black;
+                        this.pen.Color = Color.Black;
                         break;
 
                     case "green":
-                        canvasInstance.pen.Color = Color.Green;
+                        this.pen.Color = Color.Green;
                         break;
 
                     case "red":
-                        canvasInstance.pen.Color = Color.Red;
+                        this.pen.Color = Color.Red;
                         break;
                 }
             }
@@ -379,6 +425,16 @@ namespace ProgrammingLanguageAssignment
                 commandLine.Text = "";
             }
 
+        }
+
+
+        /// <summary>
+        /// Clear command process handler. 
+        /// </summary>
+        public void Clear()
+        {
+            this.pen.Color = Color.Black;
+            this.g.Clear(Color.Gray);
         }
 
     }

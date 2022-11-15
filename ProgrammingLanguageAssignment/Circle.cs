@@ -11,9 +11,19 @@ namespace ProgrammingLanguageAssignment
     {
         public int radius;
 
-        public Circle(int radius, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
+        public  Circle() : base()
         {
-            this.radius = radius;
+            this.radius = 0;
+        }
+
+
+        public override void set(int x, int y, Pen pen, SolidBrush brush, params int[] list) 
+        {
+            this.radius = list[0];
+            this.x = x;
+            this.y = y;
+            this.pen = pen;
+            this.brush = brush;
         }
 
 
@@ -21,7 +31,7 @@ namespace ProgrammingLanguageAssignment
         /// This method draws a circle
         /// </summary>
         /// <param name="g"></param>
-        public void Draw(Graphics g)
+        public override void draw(Graphics g)
         {
             float xPosition = (x - (radius / 2)) + 2;
             float yPosition = (y - (radius / 2)) + 2;

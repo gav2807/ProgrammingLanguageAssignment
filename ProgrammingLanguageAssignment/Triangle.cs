@@ -9,22 +9,41 @@ namespace ProgrammingLanguageAssignment
 {
     public class Triangle : Shapes
     {
-        public PointF[] points;
+        PointF[] points;
+        public int sides;
 
-        public Triangle(PointF[] pointsToDraw, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
+        public Triangle() : base()
         {
-            this.points = pointsToDraw;
+            this.sides = 0;
+        }
+
+
+        public override void set(int x, int y, Pen pen, SolidBrush brush, params int[] list)
+        {
+
+            this.sides = list[0];
+            this.x = x;
+            this.y = y;
+            this.pen = pen;
+            this.brush = brush;
+
+            PointF firstSide = new PointF((x - (sides / 2)) + 2, sides + (y - (sides / 2) + 2));
+            PointF secondSide = new PointF(sides + (x - (sides / 2) + 2), sides + (y - (sides / 2) + 2));
+            PointF thirdSide = new PointF((sides / 2) + (x - (sides / 2) + 2), (y - (sides / 2) + 2));
+            PointF[] trianglePoints = { firstSide, secondSide, thirdSide };
+            this.points = trianglePoints;
         }
 
 
         /// <summary>
-        /// This method draws a circle
+        /// This method draws a rectangle
         /// </summary>
         /// <param name="g"></param>
-        public void Draw(Graphics g)
+        public override void draw(Graphics g)
         {
             g.DrawPolygon(pen, points);
             g.FillPolygon(brush, points);
         }
+
     }
 }

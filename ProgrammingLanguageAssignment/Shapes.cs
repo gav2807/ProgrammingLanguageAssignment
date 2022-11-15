@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace ProgrammingLanguageAssignment
 {
-    public class Shapes
+    public abstract class Shapes 
     {
-        protected int x, y = 10;
+        protected int x, y;
         protected Pen pen;
         protected SolidBrush brush;
+
+        public Shapes()
+        {
+            x = y = 10;
+        }
         public Shapes (int x, int y, Pen pen, SolidBrush brush)
         {
             this.x = x;
@@ -19,6 +24,21 @@ namespace ProgrammingLanguageAssignment
             this.pen = pen;
             this.brush = brush;
         }
+
+        public virtual void set(int x, int y, Pen pen, SolidBrush brush, params int[] list)
+        {
+            this.x = x;
+            this.y = y;
+            this.pen = pen;
+            this.brush = brush;
+        }
+
+        public virtual void draw(Graphics g)
+        {
+            
+        }
+
+
 
     }
 }

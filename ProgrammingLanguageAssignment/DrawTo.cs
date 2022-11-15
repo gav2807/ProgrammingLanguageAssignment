@@ -11,17 +11,25 @@ namespace ProgrammingLanguageAssignment
     {
         public int start, end;
 
-        public DrawTo(int start, int end, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
+        public DrawTo() : base()
         {
-            this.start = start;
-            this.end = end;
+            start = end = 0;
+        }
+        public override void set(int x, int y, Pen pen, SolidBrush brush, params int[] list) 
+        {
+            this.start = list[0];
+            this.end = list[1];
+            this.x = x;
+            this.y = y;
+            this.pen = pen;
+            this.brush = brush;
         }
 
         /// <summary>
         /// This method draws a rectangle
         /// </summary>
         /// <param name="g"></param>
-        public void Draw(Graphics g)
+        public override void draw(Graphics g)
         {
             g.DrawLine(pen, x, y, start, end);
             this.x = start;

@@ -11,10 +11,20 @@ namespace ProgrammingLanguageAssignment
     {
         public int width, height;
 
-        public Rectangle(int width, int height, int x, int y, Pen pen, SolidBrush brush) : base(x, y, pen, brush)
+        public Rectangle() : base()
         {
-            this.width = width;
-            this.height = height;
+            width = height = 0;
+        }
+
+
+        public override void set(int x, int y, Pen pen, SolidBrush brush, params int[] list)
+        {
+            this.width = list[0];
+            this.height = list[1];
+            this.x = x;
+            this.y = y;
+            this.pen = pen;
+            this.brush = brush;
         }
 
 
@@ -22,7 +32,7 @@ namespace ProgrammingLanguageAssignment
         /// This method draws a rectangle
         /// </summary>
         /// <param name="g"></param>
-        public void Draw(Graphics g)
+        public override void draw(Graphics g)
         {
             float xPosition = (x - (width / 2)) + 2;
             float yPosition = (y - (height / 2)) + 2;
