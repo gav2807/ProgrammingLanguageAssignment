@@ -41,8 +41,8 @@ namespace ProgrammingLanguageAssignment
             this.brush = brush;
             this.x = x;
             this.y = y;
-            
-            
+
+
 
         }
 
@@ -98,6 +98,12 @@ namespace ProgrammingLanguageAssignment
                     ProgramWindowCommand(ProgramStr);
                     break;
 
+                case "var":
+                    Variable variable = new Variable();
+                    variable.set(CommandStr);
+                    break;
+
+
                 default:
                     MessageBox.Show(CommandStr[0] + " is not a valid command.");
                     break;
@@ -118,7 +124,16 @@ namespace ProgrammingLanguageAssignment
             while (Loop < Commander.Length)
             {
                 String[] SingleCommands = Commander[Loop].Split(' ');
-                if (SingleCommands[0] == "pen" || SingleCommands[0] == "rect" || SingleCommands[0] == "circle" || SingleCommands[0] == "triangle" || SingleCommands[0] == "moveto" || SingleCommands[0] == "drawto" || SingleCommands[0] == "fill" || SingleCommands[0] == "clear" || SingleCommands[0] == "reset")
+                if (SingleCommands[0] == "pen" ||
+                    SingleCommands[0] == "rect" ||
+                    SingleCommands[0] == "circle" ||
+                    SingleCommands[0] == "triangle" ||
+                    SingleCommands[0] == "moveto" ||
+                    SingleCommands[0] == "drawto" ||
+                    SingleCommands[0] == "fill" ||
+                    SingleCommands[0] == "clear" ||
+                    SingleCommands[0] == "var" ||
+                    SingleCommands[0] == "reset")
                 {
                     HandleCommand(Commander[Loop], null);
                 }
@@ -126,7 +141,7 @@ namespace ProgrammingLanguageAssignment
             }
         }
 
-        
+
         /// <summary>
         /// DrawTo command process handler.
         /// </summary>
@@ -223,7 +238,7 @@ namespace ProgrammingLanguageAssignment
                 commandLine.Text = "";
             }
         }
-         
+
 
         /// <summary>
         /// Rectangle command process handler.
@@ -343,7 +358,7 @@ namespace ProgrammingLanguageAssignment
                 MessageBox.Show("Invalid Input. Kindly input a valid triangle side length, e.g: triangle 30");
                 commandLine.Text = "";
             }
-            
+
         }
 
 
