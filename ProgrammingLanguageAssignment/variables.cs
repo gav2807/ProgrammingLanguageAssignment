@@ -8,16 +8,26 @@ namespace ProgrammingLanguageAssignment
 {
     public class Variable
     {
-        public string variableName = "";
-        public int variableValue = 0;
+        private string[] variableName = new string[100];
+        private int[] variableValue = new int[100];
 
-        public void set(params string[] list)
+        public void set(int value, string name, int index)
         {
-            if (list[0].GetType() == typeof(string) && (list.Count() == 3))
+            if (!this.variableName.Contains(name))
             {
-                this.variableName = list[0];
-                this.variableValue = Int32.Parse(list[2]);
+                this.variableName[index] = name;
+                this.variableValue[index] = value;
             }
+        }
+
+        public string[] getVariableName()
+        {
+            return this.variableName;
+        }
+
+        public int[] getVariableValue()
+        {
+            return this.variableValue;
         }
     }
 }

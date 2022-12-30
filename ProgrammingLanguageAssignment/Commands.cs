@@ -19,7 +19,10 @@ namespace ProgrammingLanguageAssignment
         int x, y;
         public bool fill = false;
         ShapesFactory factory;
+        Variable variableInstance;
         Shapes s;
+        // public string[] variableName = new string[100];
+        // public int[] variableValue = new int[100];
 
 
         /// <summary>
@@ -41,9 +44,7 @@ namespace ProgrammingLanguageAssignment
             this.brush = brush;
             this.x = x;
             this.y = y;
-
-
-
+            variableInstance = new Variable();
         }
 
 
@@ -98,11 +99,17 @@ namespace ProgrammingLanguageAssignment
                     ProgramWindowCommand(ProgramStr);
                     break;
 
-                case "var":
-                    Variable variable = new Variable();
-                    variable.set(CommandStr);
+                case "if":
                     break;
 
+                case "endif":
+                    break;
+
+                case "while":
+                    break;
+
+                case "endloop":
+                    break;
 
                 default:
                     MessageBox.Show(CommandStr[0] + " is not a valid command.");
@@ -120,10 +127,21 @@ namespace ProgrammingLanguageAssignment
         {
             String[] Commander = ProgramStr.Split(Environment.NewLine.ToCharArray());
             int Loop = 0;
+            int varLoop = 0;
 
             while (Loop < Commander.Length)
             {
                 String[] SingleCommands = Commander[Loop].Split(' ');
+
+                if ((SingleCommands.Count() == 3) && (SingleCommands[1] == "="))
+                {
+                    string variableName = SingleCommands[0];
+                    int variableIndex = varLoop;
+                    int variableValue = Int32.Parse(SingleCommands[2]);
+                    variableInstance.set(variableValue, variableName, variableIndex);
+                    varLoop++;
+                }
+
                 if (SingleCommands[0] == "pen" ||
                     SingleCommands[0] == "rect" ||
                     SingleCommands[0] == "circle" ||
@@ -132,7 +150,6 @@ namespace ProgrammingLanguageAssignment
                     SingleCommands[0] == "drawto" ||
                     SingleCommands[0] == "fill" ||
                     SingleCommands[0] == "clear" ||
-                    SingleCommands[0] == "var" ||
                     SingleCommands[0] == "reset")
                 {
                     HandleCommand(Commander[Loop], null);
@@ -156,7 +173,16 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    x = Int32.Parse(arguments[0]);
+                    if (variableInstance.getVariableName().Contains(arguments[0]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), arguments[0]);
+                        x = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        x = Int32.Parse(arguments[0]);
+                    }
+
                 }
                 catch (FormatException)
                 {
@@ -167,7 +193,15 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    y = Int32.Parse(arguments[1]);
+                    if (variableInstance.getVariableName().Contains(arguments[1]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), arguments[1]);
+                        y = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        y = Int32.Parse(arguments[0]);
+                    }
                 }
                 catch (FormatException)
                 {
@@ -205,7 +239,15 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    x = Int32.Parse(arguments[0]);
+                    if (variableInstance.getVariableName().Contains(arguments[0]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), arguments[0]);
+                        x = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        x = Int32.Parse(arguments[0]);
+                    }
                 }
                 catch (FormatException)
                 {
@@ -216,7 +258,15 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    y = Int32.Parse(arguments[1]);
+                    if (variableInstance.getVariableName().Contains(arguments[0]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), arguments[1]);
+                        y = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        y = Int32.Parse(arguments[1]);
+                    }
                 }
                 catch (FormatException)
                 {
@@ -254,7 +304,15 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    w = Int32.Parse(arguments[0]);
+                    if (variableInstance.getVariableName().Contains(arguments[0]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), arguments[0]);
+                        w = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        w = Int32.Parse(arguments[0]);
+                    }
                 }
                 catch (FormatException)
                 {
@@ -265,7 +323,16 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    h = Int32.Parse(arguments[1]);
+                    if (variableInstance.getVariableName().Contains(arguments[1]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), arguments[1]);
+                        h = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        h = Int32.Parse(arguments[1]);
+                    }
+
                 }
                 catch (FormatException)
                 {
@@ -278,8 +345,6 @@ namespace ProgrammingLanguageAssignment
                 s = factory.getShape("rect");
                 s.set(this.x, this.y, pen, brush, list);
                 s.draw(g);
-
-                //canvasInstance.DrawRectangle(x, y);
             }
             else
             {
@@ -302,11 +367,20 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    radius = Int32.Parse(ParamList[1]);
+
+                    if (variableInstance.getVariableName().Contains(ParamList[1]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), ParamList[1]);
+                        radius = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        radius = Int32.Parse(ParamList[1]);
+                    }
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Unable to parse radius " + ParamList[1] + " as an integer.");
+                    MessageBox.Show("Unable to parse radius " + variableInstance.getVariableName()[0] + " as an integer.");
                     commandLine.Text = "";
                     return;
                 }
@@ -337,7 +411,15 @@ namespace ProgrammingLanguageAssignment
 
                 try
                 {
-                    sides = Int32.Parse(ParamList[1]);
+                    if (variableInstance.getVariableName().Contains(ParamList[1]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), ParamList[1]);
+                        sides = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        sides = Int32.Parse(ParamList[1]);
+                    }
                 }
                 catch (FormatException)
                 {
@@ -351,7 +433,6 @@ namespace ProgrammingLanguageAssignment
                 s.set(this.x, this.y, pen, brush, list);
                 s.draw(g);
 
-                //canvasInstance.DrawTriangle(trianglePoints);
             }
             else
             {
