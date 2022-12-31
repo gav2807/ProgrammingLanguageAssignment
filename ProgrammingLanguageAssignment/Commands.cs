@@ -7,6 +7,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace ProgrammingLanguageAssignment
 {
@@ -20,9 +21,8 @@ namespace ProgrammingLanguageAssignment
         public bool fill = false;
         ShapesFactory factory;
         Variable variableInstance;
+        Conditional conditionalInstance;
         Shapes s;
-        // public string[] variableName = new string[100];
-        // public int[] variableValue = new int[100];
 
 
         /// <summary>
@@ -45,6 +45,7 @@ namespace ProgrammingLanguageAssignment
             this.x = x;
             this.y = y;
             variableInstance = new Variable();
+            conditionalInstance = new Conditional();
         }
 
 
@@ -99,18 +100,6 @@ namespace ProgrammingLanguageAssignment
                     ProgramWindowCommand(ProgramStr);
                     break;
 
-                case "if":
-                    break;
-
-                case "endif":
-                    break;
-
-                case "while":
-                    break;
-
-                case "endloop":
-                    break;
-
                 default:
                     MessageBox.Show(CommandStr[0] + " is not a valid command.");
                     break;
@@ -142,7 +131,40 @@ namespace ProgrammingLanguageAssignment
                     varLoop++;
                 }
 
-                if (SingleCommands[0] == "pen" ||
+                // check if the IfVariable exists in the variable array
+                else if (SingleCommands[0] == "if")
+                {
+                    int variable;
+                    int value = Int32.Parse(SingleCommands[3]);
+                    bool If = true;
+                    string condition = SingleCommands[2];
+                    if (variableInstance.getVariableName().Contains(SingleCommands[1]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), SingleCommands[1]);
+                        variable = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        variable = Int32.Parse(SingleCommands[1]);
+                    }
+
+                    // check the whole logic to see if it's true or false then set the If to true or false
+                    conditionalInstance.set(If, variable, value, condition);
+                    conditionalInstance.IfLogic = conditionalInstance.checkIfLogic();
+
+                }
+                else if ((conditionalInstance.If == true) && (conditionalInstance.IfLogic == true) && (SingleCommands[0] != "endif"))
+                {
+                    HandleCommand(Commander[Loop], null);
+                }
+                else if ((conditionalInstance.If == true) && (conditionalInstance.IfLogic == false) && (SingleCommands[0] != "endif"))
+                { }
+                else if (SingleCommands[0] == "endif")
+                {
+                    conditionalInstance.If = false;
+                    conditionalInstance.IfLogic = false;
+                }
+                else if (SingleCommands[0] == "pen" ||
                     SingleCommands[0] == "rect" ||
                     SingleCommands[0] == "circle" ||
                     SingleCommands[0] == "triangle" ||
@@ -153,6 +175,10 @@ namespace ProgrammingLanguageAssignment
                     SingleCommands[0] == "reset")
                 {
                     HandleCommand(Commander[Loop], null);
+                }
+                else
+                {
+                    MessageBox.Show(SingleCommands[0] + " is not a command.");
                 }
                 Loop++;
             }
