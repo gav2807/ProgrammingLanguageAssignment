@@ -52,11 +52,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CircleTests.cs" />
+    <Compile Include="ConditionalTests.cs" />
     <Compile Include="DrawToTests.cs" />
     <Compile Include="MoveToTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleTests.cs" />
     <Compile Include="TriangleTests.cs" />
+    <Compile Include="VariableTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProgrammingLanguageAssignment\ProgrammingLanguageAssignment.csproj">

@@ -9,3 +9,14 @@ C:\Users\P4\Downloads\project\ProgrammingLanguageAssignmentTests\obj\Debug\Progr
 C:\Users\P4\Downloads\project\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.csproj.CopyComplete
 C:\Users\P4\Downloads\project\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.dll
 C:\Users\P4\Downloads\project\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.pdb
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\bin\Debug\ProgrammingLanguageAssignmentTests.dll
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\bin\Debug\ProgrammingLanguageAssignmentTests.pdb
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\bin\Debug\ProgrammingLanguageAssignment.exe
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\bin\Debug\ProgrammingLanguageAssignment.pdb
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\bin\Debug\ProgrammingLanguageAssignment.exe.config
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.csproj.AssemblyReference.cache
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.csproj.CoreCompileInputs.cache
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.csproj.CopyComplete
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.dll
+C:\Users\P4\source\repos\ProgrammingLanguageAssignment\ProgrammingLanguageAssignmentTests\obj\Debug\ProgrammingLanguageAssignmentTests.pdb
