@@ -11,6 +11,19 @@ namespace ProgrammingLanguageAssignment.Tests
     [TestClass()]
     public class ConditionalTests
     {
+        [TestMethod()]
+        public void ConditionalTest()
+        {
+            int value = 10;
+            int variable = 5;
+            string operatorValue = ">";
+            bool If = true;
 
+            Conditional conditional = new Conditional();
+            conditional.set(If, variable, value, operatorValue);
+
+            Assert.IsFalse(conditional.checkIfLogic());
+
+        }
     }
 }
