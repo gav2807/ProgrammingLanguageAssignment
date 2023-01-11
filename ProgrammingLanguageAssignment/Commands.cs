@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
@@ -22,6 +23,7 @@ namespace ProgrammingLanguageAssignment
         ShapesFactory factory;
         Variable variableInstance;
         Conditional conditionalInstance;
+        Loop loopInstance;
         Shapes s;
 
 
@@ -46,6 +48,7 @@ namespace ProgrammingLanguageAssignment
             this.y = y;
             variableInstance = new Variable();
             conditionalInstance = new Conditional();
+            loopInstance = new Loop();
         }
 
 
@@ -126,11 +129,43 @@ namespace ProgrammingLanguageAssignment
                 {
                     string variableName = SingleCommands[0];
                     int variableIndex = varLoop;
-                    int variableValue = Int32.Parse(SingleCommands[2]);
+                    int variableValue;
+
+                    if (Regex.Match(SingleCommands[2], @"([+])", RegexOptions.IgnoreCase).Success)
+                    {
+                        string[] values = SingleCommands[2].Split('+');
+                        int valueOne;
+                        int valueTwo;
+                        if (variableInstance.getVariableName().Contains(values[0].Trim()))
+                        {
+                            int index = Array.IndexOf(variableInstance.getVariableName(), values[0]);
+                            valueOne = variableInstance.getVariableValue()[index];
+                        }
+                        else
+                        {
+                            valueOne = Int32.Parse(values[0]);
+                        }
+
+                        if (variableInstance.getVariableName().Contains(values[1].Trim()))
+                        {
+                            int index = Array.IndexOf(variableInstance.getVariableName(), values[1]);
+                            valueTwo = variableInstance.getVariableValue()[index];
+                        }
+                        else
+                        {
+                            valueTwo = Int32.Parse(values[1]);
+                        }
+                        variableValue = valueOne + valueTwo;
+                    }
+
+                    else
+                    {
+                        variableValue = Int32.Parse(SingleCommands[2]);
+                    }
+                    //Console.WriteLine(variableValue);
                     variableInstance.set(variableValue, variableName, variableIndex);
                     varLoop++;
                 }
-
                 // check if the IfVariable exists in the variable array
                 else if (SingleCommands[0] == "if")
                 {
@@ -163,6 +198,134 @@ namespace ProgrammingLanguageAssignment
                 {
                     conditionalInstance.If = false;
                     conditionalInstance.IfLogic = false;
+                }
+                else if (SingleCommands[0] == "while")
+                {
+                    bool loop = true;
+                    int loopVariable;
+                    string loopOperator = SingleCommands[2];
+                    int loopValue = Int32.Parse(SingleCommands[3]);
+
+                    if (variableInstance.getVariableName().Contains(SingleCommands[1]))
+                    {
+                        int index = Array.IndexOf(variableInstance.getVariableName(), SingleCommands[1]);
+                        loopVariable = variableInstance.getVariableValue()[index];
+                    }
+                    else
+                    {
+                        loopVariable = Int32.Parse(SingleCommands[1]);
+                    }
+
+                    // check the whole logic to see if it's true or false then set the loop to true or false
+                    loopInstance.set(loop, loopVariable, loopValue, loopOperator);
+                    loopInstance.loopLogic = loopInstance.checkLoopLogic();
+
+                }
+                else if ((loopInstance.loop == true) && (loopInstance.loopLogic == true))
+                {
+                    string loopBlock = Regex.Match(ProgramStr, @"(?<=while )[\S\s]*(?=endwhile)").Groups[0].Value;
+                    string[] loopBlockArray = loopBlock.Split(Environment.NewLine.ToCharArray()).Where((source, index) => index != 0).ToArray();
+                    string cleanLoopBlock = string.Join(Environment.NewLine, loopBlockArray);
+                    while (loopInstance.loopLogic)
+                    {
+
+                        String[] CommanderLoop = cleanLoopBlock.Split(Environment.NewLine.ToCharArray());
+                        int LoopC = 0;
+                        int varLoopC = 0;
+
+                        // Console.WriteLine(cleanLoopBlock);
+                        while (LoopC < CommanderLoop.Length)
+                        {
+                            String[] SingleCommandsC = CommanderLoop[LoopC].Split(' ');
+
+                            if ((SingleCommandsC.Count() == 3) && (SingleCommandsC[1] == "="))
+                            {
+                                //Console.WriteLine("if");
+
+                                string variableName = SingleCommandsC[0];
+                                int variableIndex = varLoopC;
+                                int variableValue;
+
+                                if (Regex.Match(SingleCommandsC[2], @"([+])", RegexOptions.IgnoreCase).Success)
+                                {
+                                    string[] valuesC = SingleCommandsC[2].Split('+');
+                                    int valueOneC;
+                                    int valueTwoC;
+                                    if (variableInstance.getVariableName().Contains(valuesC[0].Trim()))
+                                    {
+                                        int indexC = Array.IndexOf(variableInstance.getVariableName(), valuesC[0]);
+                                        valueOneC = variableInstance.getVariableValue()[indexC];
+                                    }
+                                    else
+                                    {
+                                        valueOneC = Int32.Parse(valuesC[0]);
+                                    }
+
+                                    if (variableInstance.getVariableName().Contains(valuesC[1].Trim()))
+                                    {
+                                        int indexC = Array.IndexOf(variableInstance.getVariableName(), valuesC[1]);
+                                        valueTwoC = variableInstance.getVariableValue()[indexC];
+                                    }
+                                    else
+                                    {
+                                        valueTwoC = Int32.Parse(valuesC[1]);
+                                    }
+                                    variableValue = valueOneC + valueTwoC;
+                                }
+
+                                else
+                                {
+                                    variableValue = Int32.Parse(SingleCommandsC[2]);
+                                }
+                                //Console.WriteLine(variableValue);
+                                variableInstance.set(variableValue, variableName, variableIndex);
+
+
+
+                            }
+                            else if (SingleCommandsC[0] == "pen" ||
+                                    SingleCommandsC[0] == "rect" ||
+                                   SingleCommandsC[0] == "circle" ||
+                                   SingleCommandsC[0] == "triangle" ||
+                                   SingleCommandsC[0] == "moveto" ||
+                                   SingleCommandsC[0] == "drawto" ||
+                                   SingleCommandsC[0] == "fill" ||
+                                   SingleCommandsC[0] == "clear" ||
+                                   SingleCommandsC[0] == "reset")
+                            {
+                                HandleCommand(CommanderLoop[LoopC], null);
+                                //Console.WriteLine("else if");
+
+                            }
+                            else
+                            {
+                                // Console.WriteLine("Hello Else");
+                            }
+                            LoopC++;
+                        }
+
+
+                        //ProgramWindowCommand(cleanLoopBlock);
+
+
+
+                        loopInstance.set(loopInstance.loop, loopInstance.loopVariable + 1, loopInstance.loopValue, loopInstance.loopOperator);
+                        loopInstance.loopLogic = loopInstance.checkLoopLogic();
+
+
+
+
+                        // Console.WriteLine("test");
+                        // Console.WriteLine(Commander[Loop]);
+                        //Console.WriteLine(cleanLoopBlock.Trim());
+                    }
+                }
+                else if ((loopInstance.loop == true) && (loopInstance.loopLogic == false))
+                { }
+                else if (SingleCommands[0] == "endwhile")
+                {
+                    loopInstance.loop = false;
+                    loopInstance.loopLogic = false;
                 }
                 else if (SingleCommands[0] == "pen" ||
                     SingleCommands[0] == "rect" ||
@@ -432,9 +595,7 @@ namespace ProgrammingLanguageAssignment
         {
             if (ParamList.Length == 2)
             {
-
                 int sides = 0;
-
                 try
                 {
                     if (variableInstance.getVariableName().Contains(ParamList[1]))
@@ -453,19 +614,16 @@ namespace ProgrammingLanguageAssignment
                     commandLine.Text = "";
                     return;
                 }
-
                 int[] list = new int[] { sides };
                 s = factory.getShape("triangle");
                 s.set(this.x, this.y, pen, brush, list);
                 s.draw(g);
-
             }
             else
             {
                 MessageBox.Show("Invalid Input. Kindly input a valid triangle side length, e.g: triangle 30");
                 commandLine.Text = "";
             }
-
         }
 
 

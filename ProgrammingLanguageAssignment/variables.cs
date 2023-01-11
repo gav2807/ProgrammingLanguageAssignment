@@ -13,11 +13,8 @@ namespace ProgrammingLanguageAssignment
 
         public void set(int value, string name, int index)
         {
-            if (!this.variableName.Contains(name))
-            {
-                this.variableName[index] = name;
-                this.variableValue[index] = value;
-            }
+            this.variableName[index] = name;
+            this.variableValue[index] = value;
         }
 
         public string[] getVariableName()

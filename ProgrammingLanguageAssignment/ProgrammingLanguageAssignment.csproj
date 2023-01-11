@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Circle.cs" />
     <Compile Include="Conditional.cs" />
+    <Compile Include="Loop.cs" />
     <Compile Include="variables.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="DrawTo.cs" />
