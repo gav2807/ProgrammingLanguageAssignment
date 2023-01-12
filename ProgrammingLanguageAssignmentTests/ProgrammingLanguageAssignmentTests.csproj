@@ -54,6 +54,7 @@
     <Compile Include="CircleTests.cs" />
     <Compile Include="ConditionalTests.cs" />
     <Compile Include="DrawToTests.cs" />
+    <Compile Include="LoopTests.cs" />
     <Compile Include="MoveToTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleTests.cs" />
